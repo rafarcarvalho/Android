@@ -2,6 +2,7 @@ package br.com.rrc.diariodetreino;
 
 import br.com.rrc.SQLiteDAL.DALTreino;
 import br.com.rrc.model.MDLTreino;
+import br.com.rrc.model.Util;
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -41,7 +42,7 @@ public class NovoTreinoActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-				if(txtNomeAtleta.getText().toString().replace(" ", "").isEmpty()) {
+				if(Util.IsNullOrEmpty(txtNomeAtleta.getText().toString())) {
 					alert.setMessage("Preencher nome do atleta!");
 					alert.setNeutralButton("Ok", null);
 					alert.show();
