@@ -1,5 +1,9 @@
 package br.com.rrc.diariodetreino;
 
+import java.util.List;
+
+import br.com.rrc.SQLiteDAL.DALTreino;
+import br.com.rrc.model.MDLTreino;
 import android.support.v7.app.ActionBarActivity;
 //import android.app.AlertDialog;
 import android.content.Intent;
@@ -8,11 +12,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
-	SQLiteDatabase db;
-
+	TextView tvTreino;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +42,13 @@ public class MainActivity extends ActionBarActivity {
 			alert.show();
 		}*/
 
-
+		tvTreino = (TextView)findViewById(R.id.tvTreino);
+		
+		DALTreino daltreino = new DALTreino(MainActivity.this);
+		
+		List<MDLTreino> listaTreino = daltreino.Consultar();
+		
+		tvTreino.setText(listaTreino.get(0).getVch_Nome_Atleta());
 	}
 
 

@@ -4,5 +4,84 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome do Atleta:" />
+
+    <EditText
+        android:id="@+id/txtNomeAtleta"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLength="50" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome do Treino:" />
+
+    <EditText
+        android:id="@+id/txtNomeTreino"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLength="50" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome do Projeto:" />
+
+    <EditText
+        android:id="@+id/txtNomeProjeto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLength="50" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Duração (minutos):" />
+
+    <EditText
+        android:id="@+id/txtDuracao"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="3" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Pausa entre series (segundos):" />
+
+    <EditText
+        android:id="@+id/txtPausaSeries"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="3" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/btnSalvar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Salvar"
+            android:src="@drawable/save" />
+
+        <ImageButton
+            android:id="@+id/btnExcluir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Excluir"
+            android:src="@drawable/delete" />
+    </LinearLayout>
+
 </LinearLayout>
