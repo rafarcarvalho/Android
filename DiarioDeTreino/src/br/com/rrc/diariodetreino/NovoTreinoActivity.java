@@ -3,7 +3,7 @@ package br.com.rrc.diariodetreino;
 import br.com.rrc.SQLiteDAL.DALTreino;
 import br.com.rrc.model.MDLTreino;
 import br.com.rrc.model.Util;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
-public class NovoTreinoActivity extends ActionBarActivity {
+public class NovoTreinoActivity extends Activity {
 
 	EditText txtNomeAtleta, txtNomeTreino, txtNomeProjeto, txtDuracao, txtPausaSeries;
 	ImageButton btnSalvar, btnExcluir;
@@ -43,9 +44,15 @@ public class NovoTreinoActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				if(Util.IsNullOrEmpty(txtNomeAtleta.getText().toString())) {
-					alert.setMessage("Preencher nome do atleta!");
+					/*alert.setMessage("Preencher nome do atleta!");
 					alert.setNeutralButton("Ok", null);
-					alert.show();
+					alert.show();*/
+					
+					Toast.makeText(NovoTreinoActivity.this, "Preencher nome do atleta!", Toast.LENGTH_SHORT).show();
+				}
+				else if(Util.IsNullOrEmpty(txtNomeTreino.getText().toString())){
+					Toast.makeText(NovoTreinoActivity.this, "Preencher nome do treino!", Toast.LENGTH_SHORT).show();
+					
 				}
 				else {
 					DALTreino dalTreino = new DALTreino(NovoTreinoActivity.this);
@@ -59,6 +66,7 @@ public class NovoTreinoActivity extends ActionBarActivity {
 					
 					
 					dalTreino.Inserir(mdltreino);
+					Toast.makeText(NovoTreinoActivity.this, "Salvo com sucesso!", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

@@ -1,5 +1,6 @@
 package br.com.rrc.SQLiteDAL;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,7 @@ public class DALTreino extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);  
 	}
 
+	@Override
 	public void onCreate(SQLiteDatabase db) {
 
 		String sql = "CREATE TABLE IF NOT EXISTS tb_treino " +
@@ -90,7 +92,7 @@ public class DALTreino extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_VCH_NOME_ATLETA, mdlTreino.getVch_Nome_Atleta()); 
-		values.put(KEY_DTT_CRIACAO, new Date().toString());
+		values.put(KEY_DTT_CRIACAO, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		values.put(KEY_VCH_NOME_TREINO, mdlTreino.getVch_Nome_Treino()); 
 		values.put(KEY_VCH_PROJETO, mdlTreino.getVch_Projeto());
 		values.put(KEY_INT_MINUTOS_DURACAO, mdlTreino.getInt_Minutos_Duracao());

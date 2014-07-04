@@ -1,9 +1,11 @@
 package br.com.rrc.diariodetreino;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import br.com.rrc.SQLiteDAL.DALTreino;
 import br.com.rrc.model.MDLTreino;
+import br.com.rrc.model.Util;
 import android.support.v7.app.ActionBarActivity;
 //import android.app.AlertDialog;
 import android.content.Intent;
@@ -17,7 +19,7 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
 
 	TextView tvTreino;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,12 +45,22 @@ public class MainActivity extends ActionBarActivity {
 		}*/
 
 		tvTreino = (TextView)findViewById(R.id.tvTreino);
-		
+
 		DALTreino daltreino = new DALTreino(MainActivity.this);
-		
+
 		List<MDLTreino> listaTreino = daltreino.Consultar();
-		
-		tvTreino.setText(listaTreino.get(0).getVch_Nome_Atleta());
+
+		if(listaTreino.isEmpty()){
+			tvTreino.setText("Nenhum treino encontrado!");
+		}
+		else{
+			String treinos = "";
+			for (MDLTreino mdlTreino : listaTreino) {
+				//vch_Nome_Atleta + " Treino: " + vch_Nome_Treino == null ? "-" : vch_Nome_Treino + " Criado em: " + new SimpleDateFormat("dd/MM/yyyy").format(dtt_Criacao)
+				treinos += mdlTreino.getVch_Nome_Atleta() + " Treino: " + mdlTreino.getVch_Nome_Treino() + " Criado em: " + new SimpleDateFormat("dd/MM/yyyy").format(mdlTreino.getDtt_Criacao()) + "\r\n"; 
+			}
+			tvTreino.setText(treinos);
+		}
 	}
 
 

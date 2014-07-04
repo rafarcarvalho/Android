@@ -1,6 +1,10 @@
 package br.com.rrc.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
+import android.text.format.DateFormat;
 
 
 
@@ -74,6 +78,17 @@ public class MDLTreino {
 		this.int_segundos_pausa_series = int_segundos_pausa_series;
 	}
 	
+	@Override
+	public String toString() {
+		/*return "MDLTreino ["
+				+ ", vch_Nome_Atleta=" + vch_Nome_Atleta + ", dtt_Criacao="
+				+ dtt_Criacao + ", vch_Nome_Treino=" + vch_Nome_Treino
+				+ ", vch_Projeto=" + vch_Projeto + ", int_Minutos_Duracao="
+				+ int_Minutos_Duracao + ", int_segundos_pausa_series="
+				+ int_segundos_pausa_series + "]";*/
+		
+		return vch_Nome_Atleta + " Treino: " + vch_Nome_Treino == null ? "-" : vch_Nome_Treino + " Criado em: " + new SimpleDateFormat("dd/MM/yyyy").format(dtt_Criacao);
+	}
 	public MDLTreino() {
 		super();
 	}
