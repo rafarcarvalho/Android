@@ -2,6 +2,7 @@ package br.com.rrc.SQLiteDAL;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class DALTreino extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_VCH_NOME_ATLETA, mdlTreino.getVch_Nome_Atleta()); 
-		values.put(KEY_DTT_CRIACAO, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+		values.put(KEY_DTT_CRIACAO, new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
 		values.put(KEY_VCH_NOME_TREINO, mdlTreino.getVch_Nome_Treino()); 
 		values.put(KEY_VCH_PROJETO, mdlTreino.getVch_Projeto());
 		values.put(KEY_INT_MINUTOS_DURACAO, mdlTreino.getInt_Minutos_Duracao());
