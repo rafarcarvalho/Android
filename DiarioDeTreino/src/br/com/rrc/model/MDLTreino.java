@@ -87,7 +87,7 @@ public class MDLTreino {
 				+ int_Minutos_Duracao + ", int_segundos_pausa_series="
 				+ int_segundos_pausa_series + "]";*/
 		
-		return vch_Nome_Atleta + " Treino: " + vch_Nome_Treino == null ? "-" : vch_Nome_Treino + " Criado em: " + new SimpleDateFormat("dd/MM/yyyy").format(dtt_Criacao);
+		return this.vch_Nome_Atleta + " Treino: " + this.vch_Nome_Treino + " Criado em: " + Util.getDate(this.dtt_Criacao);
 	}
 	public MDLTreino() {
 		super();

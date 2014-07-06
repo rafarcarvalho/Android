@@ -11,7 +11,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import br.com.rrc.model.MDLTreino;
+import br.com.rrc.model.Util;
 
 public class DALTreino extends SQLiteOpenHelper {
 
@@ -93,7 +95,7 @@ public class DALTreino extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_VCH_NOME_ATLETA, mdlTreino.getVch_Nome_Atleta()); 
-		values.put(KEY_DTT_CRIACAO, new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
+		values.put(KEY_DTT_CRIACAO, Util.getDate());
 		values.put(KEY_VCH_NOME_TREINO, mdlTreino.getVch_Nome_Treino()); 
 		values.put(KEY_VCH_PROJETO, mdlTreino.getVch_Projeto());
 		values.put(KEY_INT_MINUTOS_DURACAO, mdlTreino.getInt_Minutos_Duracao());
@@ -118,11 +120,12 @@ public class DALTreino extends SQLiteOpenHelper {
 			do{                
 				retorno.add(new MDLTreino(c.getInt(0), 
 						c.getString(1), 
-						new Date(c.getLong(2)), 
-						c.getString(2), 
+						Util.getDate(c.getString(2)), 
 						c.getString(3), 
-						c.getInt(4), 
-						c.getInt(5)));
+						c.getString(4), 
+						c.getInt(5), 
+						c.getInt(6)));
+				//Log.d(c.getString(2), "dtt_criacao");
 
 			}while(c.moveToNext());
 		}
