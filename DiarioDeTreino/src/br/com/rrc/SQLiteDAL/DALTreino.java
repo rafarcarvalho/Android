@@ -1,8 +1,6 @@
 package br.com.rrc.SQLiteDAL;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +9,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import br.com.rrc.model.MDLTreino;
 import br.com.rrc.model.Util;
 
@@ -19,7 +16,7 @@ public class DALTreino extends SQLiteOpenHelper {
 
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "DiarioTreino";
-	private static final String TABLE_TREINO = "tb_treino";
+	private static final String TABLE = "tb_treino";
 	private static final String KEY_PK_INT_CODIGO_TREINO = "pk_int_codigo_treino";
 	private static final String KEY_VCH_NOME_ATLETA = "vch_nome_atleta";
 	private static final String KEY_DTT_CRIACAO = "dtt_criacao";
@@ -63,32 +60,11 @@ public class DALTreino extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-		db.execSQL("DROP TABLE IF EXISTS tb_treino");
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE);
 
 		this.onCreate(db);
 	}
-
-
-	/*public void Inserir(MDLTreino mdlTreino){
-
-		final String sql = "INSERT INTO tb_treino (" + 
-							"vch_nome_atleta, " +
-							"dtt_criacao, " +
-							"vch_nome_treino, " +
-							"vch_projeto, " +
-							"int_minutos_duracao, " +
-							"int_segundos_pausa_series" + 
-							") VALUES(" + 
-									"'" + mdlTreino.getVch_Nome_Atleta() + "'" +
-										  new Date() +
-									"'" + mdlTreino.getVch_Nome_Treino() + "'" +
-									"'" + mdlTreino.getVch_Projeto() + "'" +
-									mdlTreino.getInt_Minutos_Duracao() +
-									mdlTreino.getInt_segundos_pausa_series() +
-								");";				
-        db.execSQL(sql);
-	}*/
-
+	
 	public void Inserir(MDLTreino mdlTreino){
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -101,7 +77,7 @@ public class DALTreino extends SQLiteOpenHelper {
 		values.put(KEY_INT_MINUTOS_DURACAO, mdlTreino.getInt_Minutos_Duracao());
 		values.put(KEY_INT_SEGUNDOS_PAUSA_SERIES, mdlTreino.getInt_segundos_pausa_series());
 
-		db.insert(TABLE_TREINO, 
+		db.insert(TABLE, 
 				null, 
 				values); 
 
@@ -125,8 +101,6 @@ public class DALTreino extends SQLiteOpenHelper {
 						c.getString(4), 
 						c.getInt(5), 
 						c.getInt(6)));
-				//Log.d(c.getString(2), "dtt_criacao");
-
 			}while(c.moveToNext());
 		}
 
@@ -139,7 +113,7 @@ public class DALTreino extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = 
-				db.query(TABLE_TREINO, // a. table
+				db.query(TABLE, // a. table
 						COLUMNS, // b. column names
 						" id = ?", // c. selections 
 						new String[] { String.valueOf(pk_int_codigo_treino) }, // d. selections args
@@ -175,7 +149,7 @@ public class DALTreino extends SQLiteOpenHelper {
 		values.put(KEY_INT_MINUTOS_DURACAO, mdlTreino.getInt_Minutos_Duracao());
 		values.put(KEY_INT_SEGUNDOS_PAUSA_SERIES, mdlTreino.getInt_segundos_pausa_series());
 
-		int i = db.update(TABLE_TREINO, //table
+		int i = db.update(TABLE, //table
 				values, // column/value
 				KEY_PK_INT_CODIGO_TREINO + " = ?", // selections
 				new String[] { String.valueOf(mdlTreino.getPk_Int_Codigo_Treino()) }); //selection args
@@ -188,7 +162,7 @@ public class DALTreino extends SQLiteOpenHelper {
 		 
         SQLiteDatabase db = this.getWritableDatabase();
  
-        db.delete(TABLE_TREINO, //table name
+        db.delete(TABLE, //table name
         		KEY_PK_INT_CODIGO_TREINO + " = ?",  // selections
                 new String[] { String.valueOf(mdlTreino.getPk_Int_Codigo_Treino()) }); //selections args
  
