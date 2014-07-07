@@ -5,11 +5,9 @@ import java.util.List;
 
 import br.com.rrc.SQLiteDAL.DALTreino;
 import br.com.rrc.model.MDLTreino;
-import br.com.rrc.model.Util;
 import android.support.v7.app.ActionBarActivity;
 //import android.app.AlertDialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 //import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.Menu;

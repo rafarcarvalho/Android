@@ -1,10 +1,6 @@
 package br.com.rrc.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-
-import android.text.format.DateFormat;
 
 
 

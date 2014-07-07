@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import android.net.ParseException;
-
 public class Util {
 
 	public static boolean IsNullOrEmpty(String s){
