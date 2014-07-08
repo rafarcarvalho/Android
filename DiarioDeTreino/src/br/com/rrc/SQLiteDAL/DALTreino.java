@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import br.com.rrc.model.MDLTreino;
 import br.com.rrc.model.Util;
 
@@ -71,7 +72,8 @@ public class DALTreino extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_VCH_NOME_ATLETA, mdlTreino.getVch_Nome_Atleta()); 
-		values.put(KEY_DTT_CRIACAO, Util.getDate());
+		values.put(KEY_DTT_CRIACAO, Util.getDateTime());
+		//Log.d( Util.getDateTime(),KEY_DTT_CRIACAO);
 		values.put(KEY_VCH_NOME_TREINO, mdlTreino.getVch_Nome_Treino()); 
 		values.put(KEY_VCH_PROJETO, mdlTreino.getVch_Projeto());
 		values.put(KEY_INT_MINUTOS_DURACAO, mdlTreino.getInt_Minutos_Duracao());
@@ -101,6 +103,7 @@ public class DALTreino extends SQLiteOpenHelper {
 						c.getString(4), 
 						c.getInt(5), 
 						c.getInt(6)));
+				//Log.d("consulta dtt_criacao",c.getString(2));
 			}while(c.moveToNext());
 		}
 
@@ -115,7 +118,7 @@ public class DALTreino extends SQLiteOpenHelper {
 		Cursor cursor = 
 				db.query(TABLE, // a. table
 						COLUMNS, // b. column names
-						" id = ?", // c. selections 
+						" pk_int_codigo_treino = ?", // c. selections 
 						new String[] { String.valueOf(pk_int_codigo_treino) }, // d. selections args
 						null, // e. group by
 						null, // f. having

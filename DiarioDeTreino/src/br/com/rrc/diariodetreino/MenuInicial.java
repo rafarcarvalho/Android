@@ -9,36 +9,47 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;;
 
 public class MenuInicial extends ListActivity {
+
+	List<MDLTreino> listaTreino = null;
+
 	@Override
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
-		
+
 		DALTreino daltreino = new DALTreino(MenuInicial.this);
 
-		List<MDLTreino> listaTreino = daltreino.Consultar();
+		listaTreino = daltreino.Consultar();
+
+		if(listaTreino.isEmpty()){
 		
-		this.setListAdapter(new ArrayAdapter<MDLTreino>(this, 
-													android.R.layout.simple_list_item_1, 
-													listaTreino));
-	}
-		@Override
-		protected void onListItemClick(ListView l, View v, int position, long id){
-			
-			
+		this.setListAdapter(new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_1, 
+				new String[] { "Nenhum treino encontrado" }));
 		}
-		
+		else{
+			this.setListAdapter(new ArrayAdapter<MDLTreino>(this, 
+					android.R.layout.simple_list_item_1, 
+					listaTreino));
+		}
+	}
 	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id){
+		Toast.makeText(MenuInicial.this, "ID is " + listaTreino.get(position).getPk_Int_Codigo_Treino(), Toast.LENGTH_SHORT).show();
+	}
+
 	private void startActivity(int layoutid){
 		//Intent intent = new Intent(this, ActivityLayoutIdGenerica.class);
 		//intent.putExtra("layoutResId", layoutid);
 		//startActivity(intent);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

@@ -66,7 +66,7 @@ public class NovoTreinoActivity extends Activity {
 					
 					
 					dalTreino.Inserir(mdltreino);
-					Toast.makeText(NovoTreinoActivity.this, "Salvo com sucesso!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(NovoTreinoActivity.this, "Salvo", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -93,7 +93,7 @@ public class NovoTreinoActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {      
 		int id = item.getItemId();
 		if (id == 0) {
-			startActivity(new Intent(this, MainActivity.class));
+			startActivity(new Intent(this, MenuInicial.class));
 		}
 		return super.onOptionsItemSelected(item);
 	}

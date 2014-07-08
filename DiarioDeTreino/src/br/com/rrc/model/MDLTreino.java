@@ -84,6 +84,7 @@ public class MDLTreino {
 				+ int_segundos_pausa_series + "]";*/
 		
 		return this.vch_Nome_Atleta + " Treino: " + this.vch_Nome_Treino + " Criado em: " + Util.getDate(this.dtt_Criacao);
+		//return this.vch_Nome_Atleta + " Treino: " + this.vch_Nome_Treino;
 	}
 	public MDLTreino() {
 		super();

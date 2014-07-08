@@ -1,6 +1,7 @@
 package br.com.rrc.model;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -22,14 +23,13 @@ public class Util {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				"dd/MM/yyyy HH:mm:ss", Locale.getDefault());
 		Date date = new Date();
-		return dateFormat.format(date);
+		return dateFormat.format(Calendar.getInstance().getTime());
 	}
 	
 	public static String getDate() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				"dd/MM/yyyy", Locale.getDefault());
-		Date date = new Date();
-		return dateFormat.format(date);
+		return dateFormat.format(Calendar.getInstance().getTime());
 	}
 
 	public static String getDate(Date date) {
