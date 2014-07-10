@@ -69,19 +69,18 @@
         android:layout_height="fill_parent"
         android:orientation="horizontal" >
 
-        <ImageButton
-            android:id="@+id/btnSalvar"
+        <Button
+            android:id="@+id/btnSalvarTreino"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Salvar"
-            android:src="@drawable/save" />
-
-        <ImageButton
-            android:id="@+id/btnExcluir"
+            android:text="Salvar" />
+        
+        <Button
+            android:id="@+id/btnCancelarTreino"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Excluir"
-            android:src="@drawable/delete" />
+            android:text="Cancelar" />
+      
     </LinearLayout>
 
 </LinearLayout>

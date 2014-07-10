@@ -10,15 +10,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 
 public class NovoTreinoActivity extends Activity {
 
 	EditText txtNomeAtleta, txtNomeTreino, txtNomeProjeto, txtDuracao, txtPausaSeries;
-	ImageButton btnSalvar, btnExcluir;
+	Button btnSalvarTreino, btnCancelarTreino;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class NovoTreinoActivity extends Activity {
 
 	}
 
-	public void criarInicializarObjetos(){
+	private void criarInicializarObjetos(){
 
 		txtNomeAtleta = (EditText)findViewById(R.id.txtNomeAtleta);
 		txtNomeTreino = (EditText)findViewById(R.id.txtNomeTreino);
@@ -38,8 +38,8 @@ public class NovoTreinoActivity extends Activity {
 
 		final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-		btnSalvar = (ImageButton)findViewById(R.id.btnSalvar);
-		btnSalvar.setOnClickListener(new View.OnClickListener() {
+		btnSalvarTreino = (Button)findViewById(R.id.btnSalvarTreino);
+		btnSalvarTreino.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -71,13 +71,12 @@ public class NovoTreinoActivity extends Activity {
 			}
 		});
 
-		btnExcluir = (ImageButton)findViewById(R.id.btnExcluir);
-		btnExcluir.setOnClickListener(new View.OnClickListener() {
+		btnCancelarTreino = (Button)findViewById(R.id.btnCancelarTreino);
+		btnCancelarTreino.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
+				chamarListaTreino();
 			}
 		});
 	}
@@ -93,9 +92,13 @@ public class NovoTreinoActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {      
 		int id = item.getItemId();
 		if (id == 0) {
-			startActivity(new Intent(this, MenuInicial.class));
+			chamarListaTreino();
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void chamarListaTreino(){
+		startActivity(new Intent(this, ListaTreinos.class));
+	}
+	
 }

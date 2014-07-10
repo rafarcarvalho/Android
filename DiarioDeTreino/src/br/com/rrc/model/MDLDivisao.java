@@ -42,5 +42,10 @@ public class MDLDivisao {
 	public MDLDivisao() {
 		super();
 	}
+
+	@Override
+	public String toString() {
+		return "Divisao: " + chr_Divisao;
+	}
 	
 }

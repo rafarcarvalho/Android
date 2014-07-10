@@ -86,13 +86,38 @@ public class DALDivisao extends SQLiteOpenHelper {
 		return retorno;
 	}
 	
+	public List<MDLDivisao> Consultar(int fk_int_codigo_treino, boolean consultarPorCodigoTreino){
+		List<MDLDivisao> retorno = new ArrayList<MDLDivisao>();
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor c = db.query(TABLE, // a. table
+						COLUMNS, // b. column names
+						KEY_FK_INT_CODIGO_TREINO + " = ?", // c. selections 
+						new String[] { String.valueOf(fk_int_codigo_treino) }, // d. selections args
+						null, // e. group by
+						null, // f. having
+						null, // g. order by
+						null); // h. limit
+
+		if(c.moveToFirst()){
+			do{                
+				retorno.add(new MDLDivisao(c.getInt(0),
+											c.getInt(1),
+											c.getString(2).charAt(0)));
+			}while(c.moveToNext());
+		}
+		
+		db.close();
+		return retorno;
+	}
+	
 	public MDLDivisao Consultar(int pk_int_codigo_divisao){
 
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor c = db.query(TABLE, // a. table
 						COLUMNS, // b. column names
-						KEY_FK_INT_CODIGO_TREINO + " = ?", // c. selections 
+						KEY_PK_INT_CODIGO_DIVISAO + " = ?", // c. selections 
 						new String[] { String.valueOf(pk_int_codigo_divisao) }, // d. selections args
 						null, // e. group by
 						null, // f. having

@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="br.com.rrc.diariodetreino.MenuInicial"
+            android:name="br.com.rrc.diariodetreino.ListaTreinos"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name="br.com.rrc.diariodetreino.NovoTreinoActivity" />
-        
+        <activity android:name="br.com.rrc.diariodetreino.NovaDivisaoActivity" />
+        <activity android:name="br.com.rrc.diariodetreino.ListaDivisoes" />
     </application>
 
 </manifest>

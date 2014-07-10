@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;;
 
-public class MenuInicial extends ListActivity {
+public class ListaTreinos extends ListActivity {
 
 	List<MDLTreino> listaTreino = null;
 
@@ -22,15 +22,19 @@ public class MenuInicial extends ListActivity {
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
 
-		DALTreino daltreino = new DALTreino(MenuInicial.this);
+		carregarLista();
+	}
+
+	private void carregarLista(){
+		DALTreino daltreino = new DALTreino(ListaTreinos.this);
 
 		listaTreino = daltreino.Consultar();
 
 		if(listaTreino.isEmpty()){
-		
-		this.setListAdapter(new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_1, 
-				new String[] { "Nenhum treino encontrado" }));
+
+			this.setListAdapter(new ArrayAdapter<String>(this, 
+					android.R.layout.simple_list_item_1, 
+					new String[] { "Nenhum treino encontrado" }));
 		}
 		else{
 			this.setListAdapter(new ArrayAdapter<MDLTreino>(this, 
@@ -41,13 +45,20 @@ public class MenuInicial extends ListActivity {
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id){
-		Toast.makeText(MenuInicial.this, "ID is " + listaTreino.get(position).getPk_Int_Codigo_Treino(), Toast.LENGTH_SHORT).show();
+		if(listaTreino.isEmpty()){
+			startActivity(new Intent(this, NovoTreinoActivity.class));
+		}
+		else{
+			//Toast.makeText(ListaTreinos.this, "ID is " + listaTreino.get(position).getPk_Int_Codigo_Treino(), Toast.LENGTH_SHORT).show();
+			startActivity(listaTreino.get(position).getPk_Int_Codigo_Treino());
+		}
 	}
 
-	private void startActivity(int layoutid){
-		//Intent intent = new Intent(this, ActivityLayoutIdGenerica.class);
-		//intent.putExtra("layoutResId", layoutid);
-		//startActivity(intent);
+	private void startActivity(int pk_int_codigo_treino){
+		Intent intent = new Intent(this, ListaDivisoes.class);
+		intent.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
+		startActivity(intent);
+		//Toast.makeText(ListaTreinos.this, "pk_int_codigo_treino " + pk_int_codigo_treino, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
