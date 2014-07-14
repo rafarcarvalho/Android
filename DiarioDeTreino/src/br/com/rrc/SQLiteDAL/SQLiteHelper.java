@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
  
 public class SQLiteHelper extends SQLiteOpenHelper {
- 
     // Database Version
     private static final int DATABASE_VERSION = 1;
     // Database Name

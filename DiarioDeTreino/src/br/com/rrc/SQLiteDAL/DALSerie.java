@@ -36,6 +36,7 @@ public class DALSerie extends SQLiteOpenHelper {
 	
 	public DALSerie(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.onCreate(getWritableDatabase());
 	}
 
 	@Override

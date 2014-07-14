@@ -38,6 +38,7 @@ public class DALTreino extends SQLiteOpenHelper {
 
 	public DALTreino(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);  
+		this.onCreate(getWritableDatabase());
 	}
 
 	@Override
@@ -54,6 +55,7 @@ public class DALTreino extends SQLiteOpenHelper {
 				",int_segundos_pausa_series INTEGER " +
 				"); ";
 
+		Log.i("script create table tb_treino", sql);
 
 		db.execSQL(sql);
 	}
