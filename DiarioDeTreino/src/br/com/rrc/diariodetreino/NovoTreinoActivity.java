@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,26 +49,33 @@ public class NovoTreinoActivity extends Activity {
 					/*alert.setMessage("Preencher nome do atleta!");
 					alert.setNeutralButton("Ok", null);
 					alert.show();*/
-					
+
 					Toast.makeText(NovoTreinoActivity.this, "Preencher nome do atleta!", Toast.LENGTH_SHORT).show();
 				}
 				else if(Util.IsNullOrEmpty(txtNomeTreino.getText().toString())){
 					Toast.makeText(NovoTreinoActivity.this, "Preencher nome do treino!", Toast.LENGTH_SHORT).show();
-					
+
 				}
 				else {
 					DALTreino dalTreino = new DALTreino(NovoTreinoActivity.this);
-					
+
 					MDLTreino mdltreino = new MDLTreino();
 					mdltreino.setVch_Nome_Atleta(txtNomeAtleta.getText().toString());
 					mdltreino.setVch_Nome_Treino(txtNomeTreino.getText().toString());
 					mdltreino.setVch_Projeto(txtNomeProjeto.getText().toString());
 					mdltreino.setInt_Minutos_Duracao(Integer.parseInt(txtDuracao.getText().toString()));
 					mdltreino.setInt_segundos_pausa_series(Integer.parseInt(txtPausaSeries.getText().toString()));
-					
-					
+
+
 					dalTreino.Inserir(mdltreino);
 					Toast.makeText(NovoTreinoActivity.this, "Salvo", Toast.LENGTH_SHORT).show();
+					new Handler().postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							chamarListaTreino();
+							finish();
+						}
+					}, 2000);
 				}
 			}
 		});
@@ -99,6 +108,14 @@ public class NovoTreinoActivity extends Activity {
 
 	private void chamarListaTreino(){
 		startActivity(new Intent(this, ListaTreinos.class));
+		finish();
 	}
-	
+
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(this, ListaTreinos.class);
+		startActivity(intent);
+		finish();
+	}
+
 }

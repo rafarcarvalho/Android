@@ -47,6 +47,7 @@ public class ListaTreinos extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id){
 		if(listaTreino.isEmpty()){
 			startActivity(new Intent(this, NovoTreinoActivity.class));
+			finish();
 		}
 		else{
 			//Toast.makeText(ListaTreinos.this, "ID is " + listaTreino.get(position).getPk_Int_Codigo_Treino(), Toast.LENGTH_SHORT).show();
@@ -58,6 +59,7 @@ public class ListaTreinos extends ListActivity {
 		Intent intent = new Intent(this, ListaDivisoes.class);
 		intent.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
 		startActivity(intent);
+		finish();
 		//Toast.makeText(ListaTreinos.this, "pk_int_codigo_treino " + pk_int_codigo_treino, Toast.LENGTH_SHORT).show();
 	}
 
@@ -72,9 +74,28 @@ public class ListaTreinos extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		int id = item.getItemId();
-		if (id == R.id.novo_treino) {        	        	        	
-			startActivity(new Intent(this, NovoTreinoActivity.class));        	
+		switch (id) {
+		case R.id.novo_treino:
+			startActivity(new Intent(this, NovoTreinoActivity.class)); 
+			break;
+
+		case R.id.sair:
+			System.exit(0);
+			finish();
+			break;
+			
+		default:
+			break;
 		}
+		
 		return super.onOptionsItemSelected(item);
+	}
+	
+	
+	
+	@Override
+	public void onBackPressed() {
+		System.exit(0);
+		finish();
 	}
 }

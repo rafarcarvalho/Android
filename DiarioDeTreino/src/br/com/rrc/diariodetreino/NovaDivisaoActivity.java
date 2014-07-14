@@ -61,16 +61,7 @@ public class NovaDivisaoActivity extends Activity {
 					new Handler().postDelayed(new Runnable() {
 						@Override
 						public void run() {
-							try{
-								Intent startActivity = new Intent(NovaDivisaoActivity.this, ListaDivisoes.class);
-								startActivity.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
-								startActivity(startActivity);
-								finish();
-							}
-							catch(Exception ex){
-								Log.e("postDelayed", ex.getMessage());	
-							}
-
+							chamarListaDivisoes();
 						}
 					}, 2000);
 				}
@@ -80,7 +71,7 @@ public class NovaDivisaoActivity extends Activity {
 			}
 		});
 
-
+		
 
 		spnDivisoes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -94,5 +85,26 @@ public class NovaDivisaoActivity extends Activity {
 
 			}
 		});
+
+
+		btnCancelarDivisao = (Button)findViewById(R.id.btnCancelarDivisao);
+		btnCancelarDivisao.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				chamarListaDivisoes();
+			}
+		});
+	}
+	@Override
+	public void onBackPressed() {
+		chamarListaDivisoes();
+	}
+	
+	private void chamarListaDivisoes(){
+		Intent startActivity = new Intent(NovaDivisaoActivity.this, ListaDivisoes.class);
+		startActivity.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
+		startActivity(startActivity);
+		finish();
 	}
 }
