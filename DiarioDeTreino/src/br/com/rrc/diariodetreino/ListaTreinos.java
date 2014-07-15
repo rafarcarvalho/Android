@@ -52,7 +52,7 @@ public class ListaTreinos extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id){
 		if(exclusao){
-			exclusao = false;
+
 			mdlTreino = listaTreino.get(position);
 			this.Confirm(ListaTreinos.this, "Excluir", "Excluir o treino " + mdlTreino.getVch_Nome_Treino() + " ?");
 		}
@@ -76,8 +76,10 @@ public class ListaTreinos extends ListActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(0, 0, 0, "Novo").setIcon(android.R.drawable.ic_menu_add);
+		menu.add(0, 1, 0, "Sair").setIcon(android.R.drawable.ic_lock_power_off);
 		if (!listaTreino.isEmpty())
-			menu.add(0, 1, 1, "Excluir");
+			menu.add(0, 3, 0, "Excluir").setIcon(android.R.drawable.ic_menu_delete);
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -87,18 +89,21 @@ public class ListaTreinos extends ListActivity {
 
 		int id = item.getItemId();
 		switch (id) {
-		case R.id.novo_treino:
+		case 0:
 			startActivity(new Intent(this, NovoTreinoActivity.class)); 
 			finish();
 			break;
 
-		case R.id.sair:
+		case 1:
 			System.exit(0);
 			finish();
 			break;
-			
-		case 1:
-			excluirTreino();
+
+		case 3:
+			if(listaTreino.isEmpty())
+				carregarLista();
+			else
+				excluirTreino();
 			break;
 
 		default:
@@ -112,8 +117,16 @@ public class ListaTreinos extends ListActivity {
 
 	@Override
 	public void onBackPressed() {
-		System.exit(0);
-		finish();
+		if(exclusao)
+		{
+			exclusao = false;
+			mdlTreino = null;
+			carregarLista();
+		}
+		else{
+			System.exit(0);
+			finish();
+		}
 	}
 
 	protected boolean Confirm(Activity act, String Title, String ConfirmText) {
@@ -125,6 +138,7 @@ public class ListaTreinos extends ListActivity {
 		dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Sim",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int buttonId) {
+				exclusao = false;
 				excluirTreinoEFilhos(mdlTreino);
 				Toast.makeText(ListaTreinos.this, "Excluido!", Toast.LENGTH_SHORT).show();
 				carregarLista();
@@ -133,6 +147,7 @@ public class ListaTreinos extends ListActivity {
 		dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Não",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int buttonId) {
+				exclusao = false;
 				mdlTreino = null;
 				carregarLista();
 			}
@@ -141,12 +156,12 @@ public class ListaTreinos extends ListActivity {
 		dialog.show();
 		return true;
 	}	
-	
+
 	protected void excluirTreinoEFilhos(MDLTreino mdlTreino){
 		new DALDivisao(ListaTreinos.this).Excluir(mdlTreino.getPk_Int_Codigo_Treino());
 		daltreino.Excluir(mdlTreino);
 	}
-	
+
 	protected void excluirTreino() {
 		this.setListAdapter(new ArrayAdapter<MDLTreino>(ListaTreinos.this, 
 				android.R.layout.simple_list_item_single_choice, 

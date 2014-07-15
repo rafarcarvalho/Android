@@ -3,15 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.com.rrc.diariodetreino.MainActivity" >
 
-    <item
-        android:id="@+id/novo_treino"
-        android:orderInCategory="100"
-        android:title="@string/novo_treino"/>
     
-    <item
-        android:id="@+id/sair"
-        android:orderInCategory="100"
-        android:title="Sair"/>
     
     
 

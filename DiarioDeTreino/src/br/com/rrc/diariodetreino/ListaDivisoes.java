@@ -57,7 +57,7 @@ public class ListaDivisoes extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id){
 
 		if(exclusao){
-			exclusao = false;
+
 			mdlDivisao = listaDivisoes.get(position);
 			this.Confirm(ListaDivisoes.this, "Excluir", "Excluir a divisão " + mdlDivisao.getChr_Divisao() + " ?");
 		}
@@ -80,9 +80,9 @@ public class ListaDivisoes extends ListActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, 0, 0, "Nova Divisão");
+		menu.add(0, 0, 0, "Novo").setIcon(android.R.drawable.ic_menu_add);
 		if (!listaDivisoes.isEmpty())
-			menu.add(0, 1, 1, "Excluir");
+			menu.add(0, 1, 1, "Excluir").setIcon(android.R.drawable.ic_menu_delete);
 		return true;
 	}
 
@@ -106,9 +106,16 @@ public class ListaDivisoes extends ListActivity {
 
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(this, ListaTreinos.class);
-		startActivity(intent);
-		finish();
+		if(exclusao){
+			exclusao = false;
+			mdlDivisao = null;
+			carregarLista();
+		}
+		else{
+			Intent intent = new Intent(this, ListaTreinos.class);
+			startActivity(intent);
+			finish();
+		}
 	}
 
 	protected void excluirDivisão() {
@@ -127,6 +134,7 @@ public class ListaDivisoes extends ListActivity {
 		dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Sim",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int buttonId) {
+				exclusao = false;
 				dalDivisao.Excluir(mdlDivisao);
 				Toast.makeText(ListaDivisoes.this, "Excluido!", Toast.LENGTH_SHORT).show();
 				carregarLista();
@@ -135,6 +143,7 @@ public class ListaDivisoes extends ListActivity {
 		dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Não",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int buttonId) {
+				exclusao = false;
 				mdlDivisao = null;
 				carregarLista();
 			}

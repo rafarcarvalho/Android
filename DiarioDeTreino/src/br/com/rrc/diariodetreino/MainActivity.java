@@ -72,10 +72,10 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		int id = item.getItemId();
+		/*int id = item.getItemId();
 		if (id == R.id.novo_treino) {        	        	        	
 			startActivity(new Intent(this, NovoTreinoActivity.class));        	
-		}
+		}*/
 		return super.onOptionsItemSelected(item);
 	}
 
