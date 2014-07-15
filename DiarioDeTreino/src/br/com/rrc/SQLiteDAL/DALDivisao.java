@@ -170,7 +170,7 @@ public class DALDivisao extends SQLiteOpenHelper {
 
 		int i = db.update(TABLE, //table
 				values, // column/value
-				KEY_FK_INT_CODIGO_TREINO + " = ?", // selections
+				KEY_PK_INT_CODIGO_DIVISAO + " = ?", // selections
 				new String[] { String.valueOf(mdlDivisao.getPk_Int_Codigo_Divisao()) }); //selection args
 
 		db.close();
@@ -182,8 +182,19 @@ public class DALDivisao extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		db.delete(TABLE, //table name
-				KEY_FK_INT_CODIGO_TREINO + " = ?",  // selections
+				KEY_PK_INT_CODIGO_DIVISAO + " = ?",  // selections
 				new String[] { String.valueOf(mdlDivisao.getPk_Int_Codigo_Divisao()) }); //selections args
+
+		db.close();
+	}
+	
+	public void Excluir(int fk_int_codigo_treino) {
+
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		db.delete(TABLE, //table name
+				KEY_FK_INT_CODIGO_TREINO + " = ?",  // selections
+				new String[] { String.valueOf(fk_int_codigo_treino) }); //selections args
 
 		db.close();
 	}
