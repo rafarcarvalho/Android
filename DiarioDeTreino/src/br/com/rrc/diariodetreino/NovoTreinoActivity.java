@@ -4,11 +4,9 @@ import br.com.rrc.SQLiteDAL.DALTreino;
 import br.com.rrc.model.MDLTreino;
 import br.com.rrc.model.Util;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,22 +36,25 @@ public class NovoTreinoActivity extends Activity {
 		txtDuracao = (EditText)findViewById(R.id.txtDuracao);
 		txtPausaSeries = (EditText)findViewById(R.id.txtPausaSeries);
 
-		final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
 		btnSalvarTreino = (Button)findViewById(R.id.btnSalvarTreino);
 		btnSalvarTreino.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				if(Util.IsNullOrEmpty(txtNomeAtleta.getText().toString())) {
-					/*alert.setMessage("Preencher nome do atleta!");
-					alert.setNeutralButton("Ok", null);
-					alert.show();*/
 
 					Toast.makeText(NovoTreinoActivity.this, "Preencher nome do atleta!", Toast.LENGTH_SHORT).show();
 				}
 				else if(Util.IsNullOrEmpty(txtNomeTreino.getText().toString())){
 					Toast.makeText(NovoTreinoActivity.this, "Preencher nome do treino!", Toast.LENGTH_SHORT).show();
+
+				}
+				else if(Util.IsNullOrEmpty(txtDuracao.getText().toString())){
+					Toast.makeText(NovoTreinoActivity.this, "Preencher tempo de duração do treino!", Toast.LENGTH_SHORT).show();
+
+				}
+				else if(Util.IsNullOrEmpty(txtPausaSeries.getText().toString())){
+					Toast.makeText(NovoTreinoActivity.this, "Preencher tempo de pausa entre as series!", Toast.LENGTH_SHORT).show();
 
 				}
 				else {

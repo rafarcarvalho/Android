@@ -81,7 +81,8 @@ public class ListaDivisoes extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, 0, 0, "Nova Divisão");
-		menu.add(0, 1, 1, "Excluir");
+		if (!listaDivisoes.isEmpty())
+			menu.add(0, 1, 1, "Excluir");
 		return true;
 	}
 
@@ -112,7 +113,7 @@ public class ListaDivisoes extends ListActivity {
 
 	protected void excluirDivisão() {
 		this.setListAdapter(new ArrayAdapter<MDLDivisao>(ListaDivisoes.this, 
-				android.R.layout.select_dialog_singlechoice, 
+				android.R.layout.simple_list_item_single_choice, 
 				listaDivisoes));
 		exclusao = true;
 	}
