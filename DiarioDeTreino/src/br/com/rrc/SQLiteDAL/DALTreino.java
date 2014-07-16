@@ -38,7 +38,6 @@ public class DALTreino extends SQLiteOpenHelper {
 
 	public DALTreino(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);  
-		this.onCreate(getWritableDatabase());
 	}
 
 	@Override

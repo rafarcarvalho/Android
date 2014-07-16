@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.rrc.SQLiteDAL.DALDivisao;
 import br.com.rrc.SQLiteDAL.DALTreino;
+import br.com.rrc.SQLiteDAL.SQLiteHelper;
 import br.com.rrc.model.MDLTreino;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -24,6 +25,9 @@ public class ListaTreinos extends ListActivity {
 	@Override
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
+		
+		new SQLiteHelper(ListaTreinos.this);
+		
 		daltreino = new DALTreino(ListaTreinos.this);
 
 		carregarLista();

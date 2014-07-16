@@ -28,7 +28,6 @@ public class DALDivisao extends SQLiteOpenHelper {
 
 	public DALDivisao(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.onCreate(getWritableDatabase());
 	}
 
 	@Override
