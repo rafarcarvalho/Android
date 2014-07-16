@@ -5,26 +5,24 @@ import java.util.List;
 
 import br.com.rrc.SQLiteDAL.DALDivisao;
 import br.com.rrc.model.MDLDivisao;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class ListaDivisoes extends ListActivity {
 
 	private List<MDLDivisao> listaDivisoes = new ArrayList<MDLDivisao>();
 	private int pk_int_codigo_treino;
-	private boolean exclusao = false;
 	DALDivisao dalDivisao;
-	MDLDivisao mdlDivisao;
 	@Override
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
@@ -51,24 +49,48 @@ public class ListaDivisoes extends ListActivity {
 					android.R.layout.simple_list_item_1, 
 					listaDivisoes));
 		}
+
+		ListView list = getListView();
+		registerForContextMenu(list);
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id){
-
-		if(exclusao){
-
-			mdlDivisao = listaDivisoes.get(position);
-			this.Confirm(ListaDivisoes.this, "Excluir", "Excluir a divisão " + mdlDivisao.getChr_Divisao() + " ?");
+		if(listaDivisoes.isEmpty()){
+			chamarNovaDivisao();
 		}
 		else{
-			if(listaDivisoes.isEmpty()){
-				chamarNovaDivisao();
-			}
-			else{
-				Toast.makeText(ListaDivisoes.this, "ID is " + listaDivisoes.get(position).getPk_Int_Codigo_Divisao(), Toast.LENGTH_SHORT).show();
-			}
+			Toast.makeText(ListaDivisoes.this, "ID is " + listaDivisoes.get(position).getPk_Int_Codigo_Divisao(), Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+
+		if (!listaDivisoes.isEmpty()){
+			menu.setHeaderTitle("Opções");
+			menu.setHeaderIcon(android.R.drawable.ic_menu_more);
+			menu.add(0, 3, 0, "Excluir");
+		}
+
+		getMenuInflater().inflate(R.menu.main, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {		
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		switch(item.getItemId()) {
+		case 3:
+			if(listaDivisoes.isEmpty())
+				carregarLista();
+			else
+				excluirDivisaoEFilhos(listaDivisoes.get(info.position));
+			break;
+		default:
+
+		}
+		return super.onContextItemSelected(item);
 	}
 
 	protected void chamarNovaDivisao(){
@@ -81,8 +103,6 @@ public class ListaDivisoes extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, 0, 0, "Novo").setIcon(android.R.drawable.ic_menu_add);
-		if (!listaDivisoes.isEmpty())
-			menu.add(0, 1, 1, "Excluir").setIcon(android.R.drawable.ic_menu_delete);
 		return true;
 	}
 
@@ -91,10 +111,6 @@ public class ListaDivisoes extends ListActivity {
 		switch (item.getItemId()) {
 		case 0:
 			chamarNovaDivisao();
-			break;
-
-		case 1:
-			excluirDivisão();
 			break;
 
 		default:
@@ -106,50 +122,13 @@ public class ListaDivisoes extends ListActivity {
 
 	@Override
 	public void onBackPressed() {
-		if(exclusao){
-			exclusao = false;
-			mdlDivisao = null;
-			carregarLista();
-		}
-		else{
-			Intent intent = new Intent(this, ListaTreinos.class);
-			startActivity(intent);
-			finish();
-		}
+		Intent intent = new Intent(this, ListaTreinos.class);
+		startActivity(intent);
+		finish();
 	}
 
-	protected void excluirDivisão() {
-		this.setListAdapter(new ArrayAdapter<MDLDivisao>(ListaDivisoes.this, 
-				android.R.layout.simple_list_item_single_choice, 
-				listaDivisoes));
-		exclusao = true;
-	}
-
-	public boolean Confirm(Activity act, String Title, String ConfirmText) {
-
-		AlertDialog dialog = new AlertDialog.Builder(act).create();
-		dialog.setTitle(Title);
-		dialog.setMessage(ConfirmText);
-		dialog.setCancelable(false);
-		dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Sim",
-				new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int buttonId) {
-				exclusao = false;
-				dalDivisao.Excluir(mdlDivisao);
-				Toast.makeText(ListaDivisoes.this, "Excluido!", Toast.LENGTH_SHORT).show();
-				carregarLista();
-			}
-		});
-		dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Não",
-				new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int buttonId) {
-				exclusao = false;
-				mdlDivisao = null;
-				carregarLista();
-			}
-		});
-		dialog.setIcon(android.R.drawable.ic_dialog_alert);
-		dialog.show();
-		return true;
+	protected void excluirDivisaoEFilhos(MDLDivisao mdlDivisao){
+		dalDivisao.Excluir(mdlDivisao);
+		carregarLista();
 	}
 }

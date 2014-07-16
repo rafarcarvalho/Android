@@ -5,15 +5,14 @@ import java.util.List;
 import br.com.rrc.SQLiteDAL.DALDivisao;
 import br.com.rrc.SQLiteDAL.DALTreino;
 import br.com.rrc.model.MDLTreino;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;;
@@ -22,8 +21,6 @@ public class ListaTreinos extends ListActivity {
 
 	List<MDLTreino> listaTreino = null;
 	DALTreino daltreino;
-	private boolean exclusao = false;
-	MDLTreino mdlTreino;
 	@Override
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
@@ -47,24 +44,49 @@ public class ListaTreinos extends ListActivity {
 					android.R.layout.simple_list_item_1, 
 					listaTreino));
 		}
+
+		ListView list = getListView();
+		registerForContextMenu(list);
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id){
-		if(exclusao){
-
-			mdlTreino = listaTreino.get(position);
-			this.Confirm(ListaTreinos.this, "Excluir", "Excluir o treino " + mdlTreino.getVch_Nome_Treino() + " ?");
+		if(listaTreino.isEmpty()){
+			startActivity(new Intent(this, NovoTreinoActivity.class));
+			finish();
 		}
 		else{
-			if(listaTreino.isEmpty()){
-				startActivity(new Intent(this, NovoTreinoActivity.class));
-				finish();
-			}
-			else{
-				startActivity(listaTreino.get(position).getPk_Int_Codigo_Treino());
-			}
+			startActivity(listaTreino.get(position).getPk_Int_Codigo_Treino());
 		}
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+
+		if (!listaTreino.isEmpty()){
+			menu.setHeaderTitle("Opções");
+			menu.setHeaderIcon(android.R.drawable.ic_menu_more);
+			menu.add(0, 3, 0, "Excluir");
+		}
+
+		getMenuInflater().inflate(R.menu.main, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {		
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		switch(item.getItemId()) {
+		case 3:
+			if(listaTreino.isEmpty())
+				carregarLista();
+			else
+				excluirTreinoEFilhos(listaTreino.get(info.position));
+			break;
+		default:
+
+		}
+		return super.onContextItemSelected(item);
 	}
 
 	private void startActivity(int pk_int_codigo_treino){
@@ -78,8 +100,6 @@ public class ListaTreinos extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, 0, 0, "Novo").setIcon(android.R.drawable.ic_menu_add);
 		menu.add(0, 1, 0, "Sair").setIcon(android.R.drawable.ic_lock_power_off);
-		if (!listaTreino.isEmpty())
-			menu.add(0, 3, 0, "Excluir").setIcon(android.R.drawable.ic_menu_delete);
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -99,13 +119,6 @@ public class ListaTreinos extends ListActivity {
 			finish();
 			break;
 
-		case 3:
-			if(listaTreino.isEmpty())
-				carregarLista();
-			else
-				excluirTreino();
-			break;
-
 		default:
 			break;
 		}
@@ -113,59 +126,15 @@ public class ListaTreinos extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-
-
 	@Override
 	public void onBackPressed() {
-		if(exclusao)
-		{
-			exclusao = false;
-			mdlTreino = null;
-			carregarLista();
-		}
-		else{
-			System.exit(0);
-			finish();
-		}
+		System.exit(0);
+		finish();
 	}
-
-	protected boolean Confirm(Activity act, String Title, String ConfirmText) {
-
-		AlertDialog dialog = new AlertDialog.Builder(act).create();
-		dialog.setTitle(Title);
-		dialog.setMessage(ConfirmText);
-		dialog.setCancelable(false);
-		dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Sim",
-				new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int buttonId) {
-				exclusao = false;
-				excluirTreinoEFilhos(mdlTreino);
-				Toast.makeText(ListaTreinos.this, "Excluido!", Toast.LENGTH_SHORT).show();
-				carregarLista();
-			}
-		});
-		dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Não",
-				new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int buttonId) {
-				exclusao = false;
-				mdlTreino = null;
-				carregarLista();
-			}
-		});
-		dialog.setIcon(android.R.drawable.ic_dialog_alert);
-		dialog.show();
-		return true;
-	}	
 
 	protected void excluirTreinoEFilhos(MDLTreino mdlTreino){
 		new DALDivisao(ListaTreinos.this).Excluir(mdlTreino.getPk_Int_Codigo_Treino());
 		daltreino.Excluir(mdlTreino);
-	}
-
-	protected void excluirTreino() {
-		this.setListAdapter(new ArrayAdapter<MDLTreino>(ListaTreinos.this, 
-				android.R.layout.simple_list_item_single_choice, 
-				listaTreino));
-		exclusao = true;
+		carregarLista();
 	}
 }

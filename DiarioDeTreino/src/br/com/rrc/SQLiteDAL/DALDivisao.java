@@ -71,10 +71,16 @@ public class DALDivisao extends SQLiteOpenHelper {
 	public List<MDLDivisao> Consultar(){
 
 		List<MDLDivisao> retorno = new ArrayList<MDLDivisao>();		
-		final String sql = "SELECT * FROM " + TABLE;	
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		Cursor c = db.rawQuery(sql, null);
+		Cursor c = db.query(TABLE, // a. table
+				COLUMNS, // b. column names
+				null, // c. selections 
+				null, // d. selections args
+				null, // e. group by
+				null, // f. having
+				KEY_CHR_DIVISAO, // g. order by
+				null); // h. limit
 
 		if(c.moveToFirst()){
 			do{                
@@ -98,7 +104,7 @@ public class DALDivisao extends SQLiteOpenHelper {
 				new String[] { String.valueOf(fk_int_codigo_treino) }, // d. selections args
 				null, // e. group by
 				null, // f. having
-				null, // g. order by
+				KEY_CHR_DIVISAO, // g. order by
 				null); // h. limit
 
 		if(c.moveToFirst()){

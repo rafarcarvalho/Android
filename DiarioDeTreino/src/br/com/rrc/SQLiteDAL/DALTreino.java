@@ -90,10 +90,16 @@ public class DALTreino extends SQLiteOpenHelper {
 	public List<MDLTreino> Consultar(){
 
 		List<MDLTreino> retorno = new ArrayList<MDLTreino>();		
-		final String sql = "SELECT * FROM tb_treino";	
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		Cursor c = db.rawQuery(sql, null);
+		Cursor c = db.query(TABLE, // a. table
+				COLUMNS, // b. column names
+				null, // c. selections 
+				null, // d. selections args
+				null, // e. group by
+				null, // f. having
+				KEY_VCH_NOME_ATLETA, // g. order by
+				null); // h. limit
 
 		if(c.moveToFirst()){
 			do{                
