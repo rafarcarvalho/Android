@@ -25,7 +25,6 @@ public class DALGrupoMuscular extends SQLiteOpenHelper {
 
 	public DALGrupoMuscular(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.onCreate(getWritableDatabase());
 	}
 
 	@Override
@@ -38,13 +37,7 @@ public class DALGrupoMuscular extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String sql = "CREATE TABLE IF NOT EXISTS tb_grupo_muscular " +
-				"( " +
-				"pk_int_codigo_grupo_muscular INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL " +       
-				",vch_nome VARCHAR(50) " +
-				"); ";
-
-		db.execSQL(sql);
+		
 	}
 
 	public void Inserir(MDLGrupoMuscular mdlGrupoMuscular){
@@ -101,7 +94,7 @@ public class DALGrupoMuscular extends SQLiteOpenHelper {
 		db.close();
 		return mdlGrupoMuscular;
 	}
-	
+
 	public int Alterar(MDLGrupoMuscular mdlGrupoMuscular) {
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -117,7 +110,7 @@ public class DALGrupoMuscular extends SQLiteOpenHelper {
 		db.close();
 		return i;
 	}
-	
+
 	public void Excluir(MDLGrupoMuscular mdlGrupoMuscular) {
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -127,5 +120,41 @@ public class DALGrupoMuscular extends SQLiteOpenHelper {
 				new String[] { String.valueOf(mdlGrupoMuscular.getPk_Int_Codigo_Grupo_Muscular()) }); //selections args
 
 		db.close();
+	}
+
+	public void inserirObjetosPadrao(){
+
+		String[] grupos = {"ABDOMEM",
+				"OMBROS/TRAPÉZIO",
+				"DORSAL", 
+				"PEITORAL", 
+				"MEMBROS INFERIORES", 
+				"BÍCEPS", 
+		"TRÍCEPS"};
+		
+		SQLiteDatabase dbr = this.getReadableDatabase();
+		SQLiteDatabase dbw = this.getWritableDatabase();
+		ContentValues value = new ContentValues();
+		Cursor c;
+
+		for(int i = 0; i < grupos.length; i++){
+
+			c = dbr.query(TABLE, // a. table
+					COLUMNS, // b. column names
+					KEY_VCH_NOME + " = ?", // c. selections 
+					new String[] { String.valueOf(grupos[i]) }, // d. selections args
+					null, // e. group by
+					null, // f. having
+					null, // g. order by
+					null); // h. limit
+
+			if (c != null){
+				value.put(KEY_VCH_NOME, grupos[i]);
+				dbw.insert(TABLE, null, value);
+				value = new ContentValues();
+			}
+		}
+		dbr.close();
+		dbw.close(); 
 	}
 }

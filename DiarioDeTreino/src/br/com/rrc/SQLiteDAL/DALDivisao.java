@@ -32,7 +32,7 @@ public class DALDivisao extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String sql = "CREATE TABLE IF NOT EXISTS tb_divisao " +
+		/*String sql = "CREATE TABLE IF NOT EXISTS tb_divisao " +
 				"( " +
 				"pk_int_codigo_divisao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL " +       
 				",fk_int_codigo_treino INTEGER NOT NULL " +
@@ -41,7 +41,7 @@ public class DALDivisao extends SQLiteOpenHelper {
 
 
 		Log.i("script create table tb_divisao", sql);
-		db.execSQL(sql);
+		db.execSQL(sql);*/
 	}
 
 	@Override

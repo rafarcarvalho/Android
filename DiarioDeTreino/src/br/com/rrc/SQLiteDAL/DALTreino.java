@@ -43,7 +43,7 @@ public class DALTreino extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-		String sql = "CREATE TABLE IF NOT EXISTS tb_treino " +
+		/*String sql = "CREATE TABLE IF NOT EXISTS tb_treino " +
 				"( " +
 				"pk_int_codigo_treino INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL " +      
 				",vch_nome_atleta VARCHAR(50) NOT NULL " +
@@ -56,7 +56,7 @@ public class DALTreino extends SQLiteOpenHelper {
 
 		Log.i("script create table tb_treino", sql);
 
-		db.execSQL(sql);
+		db.execSQL(sql);*/
 	}
 
 	@Override

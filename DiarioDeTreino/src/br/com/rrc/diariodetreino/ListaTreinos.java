@@ -29,7 +29,6 @@ public class ListaTreinos extends ListActivity {
 		new SQLiteHelper(ListaTreinos.this);
 		
 		daltreino = new DALTreino(ListaTreinos.this);
-
 		carregarLista();
 	}
 
