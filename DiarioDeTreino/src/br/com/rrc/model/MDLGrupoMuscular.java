@@ -26,4 +26,8 @@ public class MDLGrupoMuscular {
 	public MDLGrupoMuscular() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return vch_Nome;
+	}
 }

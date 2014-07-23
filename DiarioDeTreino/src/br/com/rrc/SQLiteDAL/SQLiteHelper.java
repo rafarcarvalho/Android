@@ -1,7 +1,5 @@
 package br.com.rrc.SQLiteDAL;
 
-import br.com.rrc.diariodetreino.R;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -225,30 +223,5 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS tb_divisao");
 
 		this.onCreate(db);
-	}
-	
-	private String inserirPeitoral(int fk_int_codigo_grupo_muscular){
-		String sql = "";
-		
-		String[] exercicios = {
-				"Supino Máquina",	
-				"Supino Reto",
-				"Supino Inclinado",
-				"Supino Declinado",
-				"Peck Deck",
-				"Crucifixo Inclinado",
-				"Crucifixo",
-				"Cross Over",
-				"Pull Over",
-				"Supino Halter",
-				"Supino Halter Inclinado"
-		};
-
-		for(int i = 0; i < exercicios.length; i++){
-			sql += "INSERT or replace INTO tb_exercicio (fk_int_codigo_grupo_muscular, vch_descricao) VALUES(" + fk_int_codigo_grupo_muscular + ", '" + exercicios[i] +  "'); ";
-			
-		}
-		
-		return sql;
 	}
 }
