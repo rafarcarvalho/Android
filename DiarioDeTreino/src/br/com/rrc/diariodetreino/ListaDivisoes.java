@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class ListaDivisoes extends ListActivity {
@@ -60,7 +59,8 @@ public class ListaDivisoes extends ListActivity {
 			chamarNovaDivisao();
 		}
 		else{
-			Toast.makeText(ListaDivisoes.this, "ID is " + listaDivisoes.get(position).getPk_Int_Codigo_Divisao(), Toast.LENGTH_SHORT).show();
+			//Toast.makeText(ListaDivisoes.this, "ID is " + listaDivisoes.get(position).getPk_Int_Codigo_Divisao(), Toast.LENGTH_SHORT).show();
+			startActivity(listaDivisoes.get(position).getPk_Int_Codigo_Divisao());
 		}
 	}
 
@@ -69,7 +69,7 @@ public class ListaDivisoes extends ListActivity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 
 		if (!listaDivisoes.isEmpty()){
-			menu.setHeaderTitle("Opções");
+			menu.setHeaderTitle("Mais");
 			menu.setHeaderIcon(android.R.drawable.ic_menu_more);
 			menu.add(0, 3, 0, "Excluir");
 		}
@@ -82,10 +82,7 @@ public class ListaDivisoes extends ListActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch(item.getItemId()) {
 		case 3:
-			if(listaDivisoes.isEmpty())
-				carregarLista();
-			else
-				excluirDivisaoEFilhos(listaDivisoes.get(info.position));
+			excluirDivisaoEFilhos(listaDivisoes.get(info.position));
 			break;
 		default:
 
@@ -130,5 +127,13 @@ public class ListaDivisoes extends ListActivity {
 	protected void excluirDivisaoEFilhos(MDLDivisao mdlDivisao){
 		dalDivisao.Excluir(mdlDivisao);
 		carregarLista();
+	}
+	
+	private void startActivity(int pk_int_codigo_divisao){
+		Intent intent = new Intent(this, ListaGruposMusculares.class);
+		intent.putExtra("pk_int_codigo_divisao", pk_int_codigo_divisao);
+		intent.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
+		startActivity(intent);
+		finish();
 	}
 }

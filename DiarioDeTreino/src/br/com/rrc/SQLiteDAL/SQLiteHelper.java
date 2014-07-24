@@ -60,12 +60,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
 		db.execSQL(sql);
 
+		sql = "CREATE TABLE IF NOT EXISTS tb_grupo_divisao " +
+				"( " +
+				"pk_int_codigo_grupo_divisao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL " +
+				",fk_int_codigo_divisao INTEGER NOT NULL " +
+				",fk_int_codigo_grupo_muscular INTEGER NOT NULL " +
+				");";
+
+		db.execSQL(sql);
+
 
 		//INSERTS PADRAO
 		int fk_int_codigo_grupo_muscular = 1;
 		sql = "INSERT or replace INTO tb_grupo_muscular (vch_nome) VALUES('ABDOMEM')";
 		db.execSQL(sql);
-		
+
 		String[] exercicios_abdomem = {
 				"Máquina",	
 				"Reto Abdominal",
@@ -79,12 +88,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			sql = "INSERT or replace INTO tb_exercicio (fk_int_codigo_grupo_muscular, vch_descricao) VALUES(" + fk_int_codigo_grupo_muscular + ", '" + exercicios_abdomem[i] +  "'); ";
 			db.execSQL(sql);
 		}
-		
-		
+
+
 		fk_int_codigo_grupo_muscular = 2;
 		sql = "INSERT or replace INTO tb_grupo_muscular (vch_nome) VALUES('OMBROS/TRAPÉZIO')";
 		db.execSQL(sql);
-		
+
 		String[] exercicios_ombros = {
 				"Elevação Lateral",	
 				"Elevação Frontal",
@@ -100,11 +109,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			sql = "INSERT or replace INTO tb_exercicio (fk_int_codigo_grupo_muscular, vch_descricao) VALUES(" + fk_int_codigo_grupo_muscular + ", '" + exercicios_ombros[i] +  "'); ";
 			db.execSQL(sql);
 		}
-		
+
 		fk_int_codigo_grupo_muscular = 3;
 		sql = "INSERT or replace INTO tb_grupo_muscular (vch_nome) VALUES('DORSAL')";
 		db.execSQL(sql);
-		
+
 		String[] exercicios_dorsal = {
 				"Remada",
 				"Remada Aberta",
@@ -122,11 +131,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			sql = "INSERT or replace INTO tb_exercicio (fk_int_codigo_grupo_muscular, vch_descricao) VALUES(" + fk_int_codigo_grupo_muscular + ", '" + exercicios_dorsal[i] +  "'); ";
 			db.execSQL(sql);
 		}
-		
+
 		fk_int_codigo_grupo_muscular = 4;
 		sql = "INSERT or replace INTO tb_grupo_muscular (vch_nome) VALUES('PEITORAL')";
 		db.execSQL(sql);
-		
+
 		String[] exercicios_peitoral = {
 				"Supino Máquina",	
 				"Supino Reto",
@@ -145,12 +154,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			sql = "INSERT or replace INTO tb_exercicio (fk_int_codigo_grupo_muscular, vch_descricao) VALUES(" + fk_int_codigo_grupo_muscular + ", '" + exercicios_peitoral[i] +  "'); ";
 			db.execSQL(sql);
 		}
-		
-		
+
+
 		fk_int_codigo_grupo_muscular = 5;
 		sql = "INSERT or replace INTO tb_grupo_muscular (vch_nome) VALUES('MEMBROS INFERIORES')";
 		db.execSQL(sql);
-		
+
 		String[] exercicios_membros_inf = {
 				"Extensora",
 				"Extensora Unilateral",
@@ -173,11 +182,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			sql = "INSERT or replace INTO tb_exercicio (fk_int_codigo_grupo_muscular, vch_descricao) VALUES(" + fk_int_codigo_grupo_muscular + ", '" + exercicios_membros_inf[i] +  "'); ";
 			db.execSQL(sql);
 		}
-		
+
 		fk_int_codigo_grupo_muscular = 6;
 		sql = "INSERT or replace INTO tb_grupo_muscular (vch_nome) VALUES('BÍCEPS')";
 		db.execSQL(sql);
-		
+
 		String[] exercicios_biceps = {
 				"Rosca Simultânea",
 				"Rosca Simultânea 45°",
@@ -193,7 +202,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			sql = "INSERT or replace INTO tb_exercicio (fk_int_codigo_grupo_muscular, vch_descricao) VALUES(" + fk_int_codigo_grupo_muscular + ", '" + exercicios_biceps[i] +  "'); ";
 			db.execSQL(sql);
 		}
-		
+
 		fk_int_codigo_grupo_muscular = 7;
 		sql = "INSERT or replace INTO tb_grupo_muscular (vch_nome) VALUES('TRÍCEPS')";
 		db.execSQL(sql);
