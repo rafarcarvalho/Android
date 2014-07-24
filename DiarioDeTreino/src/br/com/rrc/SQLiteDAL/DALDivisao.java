@@ -46,9 +46,9 @@ public class DALDivisao extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE);
+		/*db.execSQL("DROP TABLE IF EXISTS " + TABLE);
 
-		this.onCreate(db);
+		this.onCreate(db);*/
 	}
 
 	public void Inserir(MDLDivisao mdlDivisao){
@@ -129,8 +129,7 @@ public class DALDivisao extends SQLiteOpenHelper {
 				null, // g. order by
 				null); // h. limit
 
-		if (c.getCount() > 0){
-			c.moveToFirst();
+		if (c.moveToFirst()){
 
 			mdlDivisao = new MDLDivisao(c.getInt(0),
 					c.getInt(1),
@@ -143,7 +142,7 @@ public class DALDivisao extends SQLiteOpenHelper {
 	public MDLDivisao Consultar(int pk_int_codigo_divisao){
 
 		SQLiteDatabase db = this.getReadableDatabase();
-
+		MDLDivisao mdlDivisao = null;
 		Cursor c = db.query(TABLE, // a. table
 				COLUMNS, // b. column names
 				KEY_PK_INT_CODIGO_DIVISAO + " = ?", // c. selections 
@@ -153,13 +152,12 @@ public class DALDivisao extends SQLiteOpenHelper {
 				null, // g. order by
 				null); // h. limit
 
-		if (c != null)
-			c.moveToFirst();
+		if (c.moveToFirst()){
 
-		MDLDivisao mdlDivisao =(new MDLDivisao(c.getInt(0),
+		mdlDivisao =(new MDLDivisao(c.getInt(0),
 				c.getInt(1),
 				c.getString(2).charAt(0)));
-
+		}
 		db.close();
 		return mdlDivisao;
 	}

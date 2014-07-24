@@ -26,7 +26,7 @@
         <activity android:name="br.com.rrc.diariodetreino.NovaDivisaoActivity" />
         <activity android:name="br.com.rrc.diariodetreino.ListaDivisoes" />
         <activity android:name="br.com.rrc.diariodetreino.ListaGruposMusculares" />
-        <activity android:name="br.com.rrc.diariodetreino.NovoGrupo" />
+        <activity android:name="br.com.rrc.diariodetreino.NovoGrupoDivisao" />
     </application>
 
 </manifest>

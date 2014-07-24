@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Nome do Atleta:" />
+        android:text="Nome:" />
 
     <EditText
         android:id="@+id/txtNomeAtleta"
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Nome do Treino:" />
+        android:text="Descrição do Treino:" />
 
     <EditText
         android:id="@+id/txtNomeTreino"
@@ -31,7 +31,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Nome do Projeto:" />
+        android:text="Descrição do Projeto:" />
 
     <EditText
         android:id="@+id/txtNomeProjeto"

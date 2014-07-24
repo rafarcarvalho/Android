@@ -105,8 +105,9 @@ public class ListaGruposMusculares extends ListActivity {
 	}
 
 	protected void chamarNovoGrupo(){
-		Intent intent = new Intent(this, NovoGrupo.class);
+		Intent intent = new Intent(this, NovoGrupoDivisao.class);
 		intent.putExtra("pk_int_codigo_divisao", pk_int_codigo_divisao);
+		intent.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
 		startActivity(intent);
 		finish();
 	}

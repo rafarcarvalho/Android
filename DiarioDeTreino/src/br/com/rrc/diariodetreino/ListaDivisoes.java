@@ -13,9 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.Toast;
 
 public class ListaDivisoes extends ListActivity {
 
@@ -26,6 +29,7 @@ public class ListaDivisoes extends ListActivity {
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
 		dalDivisao = new DALDivisao(ListaDivisoes.this);
+		this.setTitle("teste");
 		carregarLista();
 	}
 
@@ -34,7 +38,7 @@ public class ListaDivisoes extends ListActivity {
 		Bundle extras = getIntent().getExtras();
 
 		pk_int_codigo_treino = extras.getInt("pk_int_codigo_treino");
-		//Toast.makeText(ListaDivisoes.this, pk_int_codigo_treino + "", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(ListaDivisoes.this, "pk_int_codigo_treino: " + pk_int_codigo_treino, Toast.LENGTH_SHORT).show();
 		if(pk_int_codigo_treino != 0)
 			listaDivisoes = dalDivisao.Consultar(pk_int_codigo_treino, true);
 
