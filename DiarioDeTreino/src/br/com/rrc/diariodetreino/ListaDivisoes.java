@@ -7,18 +7,19 @@ import br.com.rrc.SQLiteDAL.DALDivisao;
 import br.com.rrc.model.MDLDivisao;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Window;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
-import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.Toast;
 
 public class ListaDivisoes extends ListActivity {
 
@@ -28,8 +29,8 @@ public class ListaDivisoes extends ListActivity {
 	@Override
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
+		this.adicionarCabecalho("Lista de Divisões");
 		dalDivisao = new DALDivisao(ListaDivisoes.this);
-		this.setTitle("teste");
 		carregarLista();
 	}
 
@@ -64,7 +65,7 @@ public class ListaDivisoes extends ListActivity {
 		}
 		else{
 			//Toast.makeText(ListaDivisoes.this, "ID is " + listaDivisoes.get(position).getPk_Int_Codigo_Divisao(), Toast.LENGTH_SHORT).show();
-			startActivity(listaDivisoes.get(position).getPk_Int_Codigo_Divisao());
+			startActivity(listaDivisoes.get(position - 1).getPk_Int_Codigo_Divisao());
 		}
 	}
 
@@ -86,7 +87,7 @@ public class ListaDivisoes extends ListActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch(item.getItemId()) {
 		case 3:
-			excluirDivisaoEFilhos(listaDivisoes.get(info.position));
+			excluirDivisaoEFilhos(listaDivisoes.get(info.position - 1));
 			break;
 		default:
 
@@ -139,5 +140,19 @@ public class ListaDivisoes extends ListActivity {
 		intent.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
 		startActivity(intent);
 		finish();
+	}
+	
+	protected void adicionarCabecalho(String texto){
+		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, 30);
+		TextView mHeaderView;
+		mHeaderView = new TextView(this);
+		mHeaderView.setTextColor(Color.BLACK);
+		mHeaderView.setTextSize(20);
+		mHeaderView.setBackgroundColor(Color.LTGRAY);
+		mHeaderView.setGravity(Gravity.CENTER);
+		mHeaderView.setLayoutParams(lp);
+		mHeaderView.setText(texto);
+
+		getListView().addHeaderView(mHeaderView);
 	}
 }

@@ -8,12 +8,16 @@ import br.com.rrc.SQLiteDAL.SQLiteHelper;
 import br.com.rrc.model.MDLTreino;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.AbsListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;;
@@ -22,12 +26,15 @@ public class ListaTreinos extends ListActivity {
 
 	List<MDLTreino> listaTreino = null;
 	DALTreino daltreino;
+	
 	@Override
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
-		
+
+		this.adicionarCabecalho("Lista de Treinos");
+
 		new SQLiteHelper(ListaTreinos.this);
-		
+
 		daltreino = new DALTreino(ListaTreinos.this);
 		carregarLista();
 	}
@@ -59,7 +66,7 @@ public class ListaTreinos extends ListActivity {
 			finish();
 		}
 		else{
-			startActivity(listaTreino.get(position).getPk_Int_Codigo_Treino());
+			startActivity(listaTreino.get(position - 1).getPk_Int_Codigo_Treino());
 		}
 	}
 
@@ -84,7 +91,7 @@ public class ListaTreinos extends ListActivity {
 			if(listaTreino.isEmpty())
 				carregarLista();
 			else
-				excluirTreinoEFilhos(listaTreino.get(info.position));
+				excluirTreinoEFilhos(listaTreino.get(info.position - 1));
 			break;
 		default:
 
@@ -139,5 +146,19 @@ public class ListaTreinos extends ListActivity {
 		new DALDivisao(ListaTreinos.this).Excluir(mdlTreino.getPk_Int_Codigo_Treino());
 		daltreino.Excluir(mdlTreino);
 		carregarLista();
+	}
+	
+	protected void adicionarCabecalho(String texto){
+		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, 30);
+		TextView mHeaderView;
+		mHeaderView = new TextView(this);
+		mHeaderView.setTextColor(Color.BLACK);
+		mHeaderView.setTextSize(20);
+		mHeaderView.setBackgroundColor(Color.LTGRAY);
+		mHeaderView.setGravity(Gravity.CENTER);
+		mHeaderView.setLayoutParams(lp);
+		mHeaderView.setText(texto);
+
+		getListView().addHeaderView(mHeaderView);
 	}
 }

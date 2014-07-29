@@ -5,14 +5,18 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import br.com.rrc.SQLiteDAL.DALGrupoDivisao;
@@ -33,6 +37,7 @@ public class ListaGruposMusculares extends ListActivity {
 		super.onCreate(icicle);
 		dalGrupoDivisao = new DALGrupoDivisao(ListaGruposMusculares.this);
 		dalGrupoMuscular = new DALGrupoMuscular(ListaGruposMusculares.this);
+		this.adicionarCabecalho("Lista Grupo Musculares");
 		carregarLista();
 	}
 
@@ -74,7 +79,7 @@ public class ListaGruposMusculares extends ListActivity {
 			chamarNovoGrupo();
 		}
 		else{
-			Toast.makeText(ListaGruposMusculares.this, "ID is " + listaGrupoDivisao.get(position).getPk_Int_Codigo_Grupo_Divisao(), Toast.LENGTH_SHORT).show();
+			Toast.makeText(ListaGruposMusculares.this, "ID is " + listaGrupoDivisao.get(position - 1).getPk_Int_Codigo_Grupo_Divisao(), Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -96,7 +101,7 @@ public class ListaGruposMusculares extends ListActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch(item.getItemId()) {
 		case 3:
-			excluirGrupoDivisaoEFilhos(listaGrupoDivisao.get(info.position));
+			excluirGrupoDivisaoEFilhos(listaGrupoDivisao.get(info.position - 1));
 			break;
 		default:
 
@@ -143,5 +148,19 @@ public class ListaGruposMusculares extends ListActivity {
 	protected void excluirGrupoDivisaoEFilhos(MDLGrupoDivisao mdlGrupoDivisao){
 		dalGrupoDivisao.Excluir(mdlGrupoDivisao);
 		carregarLista();
+	}
+	
+	protected void adicionarCabecalho(String texto){
+		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, 30);
+		TextView mHeaderView;
+		mHeaderView = new TextView(this);
+		mHeaderView.setTextColor(Color.BLACK);
+		mHeaderView.setTextSize(20);
+		mHeaderView.setBackgroundColor(Color.LTGRAY);
+		mHeaderView.setGravity(Gravity.CENTER);
+		mHeaderView.setLayoutParams(lp);
+		mHeaderView.setText(texto);
+
+		getListView().addHeaderView(mHeaderView);
 	}
 }
