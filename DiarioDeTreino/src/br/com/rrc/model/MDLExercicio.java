@@ -45,4 +45,8 @@ public class MDLExercicio {
 	public MDLExercicio() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return vch_Descricao;
+	}
 }

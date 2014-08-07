@@ -71,6 +71,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL(sql);
 
 
+		sql = "CREATE TABLE IF NOT EXISTS tb_exercicio_grupo_divisao " +
+				"( " +
+				"pk_int_codigo_exercicio_grupo_divisao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL " +
+				",fk_int_codigo_grupo_divisao INTEGER NOT NULL " +
+				",fk_int_codigo_exercicio INTEGER NOT NULL " +
+				");";
+
+		db.execSQL(sql);
+
+
 		//INSERTS PADRAO
 		int fk_int_codigo_grupo_muscular = 1;
 		sql = "INSERT or replace INTO tb_grupo_muscular (vch_nome) VALUES('ABDOMEM')";
