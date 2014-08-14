@@ -79,7 +79,8 @@ public class ListaGruposMusculares extends ListActivity {
 			chamarNovoGrupo();
 		}
 		else{
-			Toast.makeText(ListaGruposMusculares.this, "ID is " + listaGrupoDivisao.get(position - 1).getPk_Int_Codigo_Grupo_Divisao(), Toast.LENGTH_SHORT).show();
+			//Toast.makeText(ListaGruposMusculares.this, "ID is " + listaGrupoDivisao.get(position - 1).getPk_Int_Codigo_Grupo_Divisao(), Toast.LENGTH_SHORT).show();
+			chamarNovoExercicio(listaGrupoDivisao.get(position - 1).getFk_Int_Codigo_Grupo_Muscular());
 		}
 	}
 
@@ -111,6 +112,15 @@ public class ListaGruposMusculares extends ListActivity {
 
 	protected void chamarNovoGrupo(){
 		Intent intent = new Intent(this, NovoGrupoDivisao.class);
+		intent.putExtra("pk_int_codigo_divisao", pk_int_codigo_divisao);
+		intent.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
+		startActivity(intent);
+		finish();
+	}
+	
+	protected void chamarNovoExercicio(int fk_int_codigo_grupo_muscular){
+		Intent intent = new Intent(this, NovoExercicioDivisao.class);
+		intent.putExtra("fk_int_codigo_grupo_muscular", fk_int_codigo_grupo_muscular);
 		intent.putExtra("pk_int_codigo_divisao", pk_int_codigo_divisao);
 		intent.putExtra("pk_int_codigo_treino", pk_int_codigo_treino);
 		startActivity(intent);

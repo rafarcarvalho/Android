@@ -118,7 +118,7 @@ public class NovoGrupoDivisao extends ListActivity {
 			//chamarNovoGrupo();
 		}
 		else{
-			//mdlGrupoMuscular = listaGruposMusculares.get(position);
+			salvarNaDivisao(listaGruposMusculares.get(position));
 		}
 	}
 
@@ -150,7 +150,7 @@ public class NovoGrupoDivisao extends ListActivity {
 		if (!listaGruposMusculares.isEmpty()){
 			menu.setHeaderTitle("Mais");
 			menu.setHeaderIcon(android.R.drawable.ic_menu_more);
-			menu.add(0, 2, 0, "Incluir na divisão");
+			//menu.add(0, 2, 0, "Incluir na divisão");
 			menu.add(0, 3, 0, "Excluir");
 		}
 
@@ -161,9 +161,9 @@ public class NovoGrupoDivisao extends ListActivity {
 	public boolean onContextItemSelected(MenuItem item) {		
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch(item.getItemId()) {
-		case 2:
+		/*case 2:
 			salvarNaDivisao(listaGruposMusculares.get(info.position));
-			break;
+			break;*/
 		case 3:
 			//excluirGrupoDivisaoEFilhos(listaGruposMusculares.get(info.position));
 			break;

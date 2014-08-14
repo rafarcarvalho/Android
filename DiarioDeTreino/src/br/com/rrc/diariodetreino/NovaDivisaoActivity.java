@@ -58,12 +58,12 @@ public class NovaDivisaoActivity extends Activity {
 					mdlDivisao.setFk_Int_Codigo_Treino(pk_int_codigo_treino);
 					dalDivisao.Inserir(mdlDivisao);
 					Toast.makeText(NovaDivisaoActivity.this, "Salvo", Toast.LENGTH_SHORT).show();
-					new Handler().postDelayed(new Runnable() {
+					/*new Handler().postDelayed(new Runnable() {
 						@Override
-						public void run() {
+						public void run() {*/
 							chamarListaDivisoes();
-						}
-					}, 2000);
+						/*}
+					}, 2000);*/
 				}
 				else{
 					Toast.makeText(NovaDivisaoActivity.this, "O treino já contém uma divisão " + letra, Toast.LENGTH_SHORT).show();

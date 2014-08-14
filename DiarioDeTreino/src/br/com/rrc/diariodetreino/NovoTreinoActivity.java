@@ -70,13 +70,13 @@ public class NovoTreinoActivity extends Activity {
 
 					dalTreino.Inserir(mdltreino);
 					Toast.makeText(NovoTreinoActivity.this, "Salvo", Toast.LENGTH_SHORT).show();
-					new Handler().postDelayed(new Runnable() {
+					/*new Handler().postDelayed(new Runnable() {
 						@Override
-						public void run() {
+						public void run() {*/
 							chamarListaTreino();
 							finish();
-						}
-					}, 2000);
+						/*}
+					}, 2000);*/
 				}
 			}
 		});

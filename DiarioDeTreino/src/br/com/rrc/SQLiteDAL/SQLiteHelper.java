@@ -70,13 +70,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
 		db.execSQL(sql);
 
-
-		sql = "CREATE TABLE IF NOT EXISTS tb_exercicio_grupo_divisao " +
+		sql = "CREATE TABLE IF NOT EXISTS tb_serie " +
 				"( " +
-				"pk_int_codigo_exercicio_grupo_divisao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL " +
-				",fk_int_codigo_grupo_divisao INTEGER NOT NULL " +
-				",fk_int_codigo_exercicio INTEGER NOT NULL " +
-				");";
+						"pk_int_codigo_serie INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL " +
+						",fk_int_codigo_grupo_divisao INTEGER NOT NULL " +
+						",fk_int_codigo_exercicio INTEGER NOT NULL " +
+						",flt_carga DOUBLE NOT NULL " +
+						",int_repeticoes INTEGER " +
+						",bit_completou BIT " +
+						",dtt_inicio DATETIME " +
+						",dtt_fim DATETIME " +
+				"); ";
+
 
 		db.execSQL(sql);
 
